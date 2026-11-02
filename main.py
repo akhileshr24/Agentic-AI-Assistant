@@ -16,17 +16,21 @@ from prompts.system_prompt import SYSTEM_PROMPT
 def build_agent():
     """Create and return the LangChain agent."""
 
+    # Initialize Groq LLM
     llm = ChatGroq(
         model="openai/gpt-oss-120b",
         temperature=0,
+        max_tokens=512,
     )
 
+    # Register available tools
     tools = [
         search_tool,
         get_weather_data,
         wikipedia_search,
     ]
 
+    # Create LangChain agent
     agent = create_agent(
         model=llm,
         tools=tools,
